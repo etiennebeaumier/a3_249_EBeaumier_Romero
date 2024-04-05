@@ -2,7 +2,7 @@
          //Assignment 2
          //Question: Main Class
         // Written by: Étienne Beaumier, 40211362
-                       Romero FAUSTIN,   40234898
+                       Romero  FAUSTIN,   40234898
 // -----------------------------------------------------
 */
 
@@ -13,17 +13,17 @@ package LinkedLists;
  */
 public class VocabSLL {
     private String words;
-    private Node head;
+    private SNode head;
     private int size = 0;
 
     /**
      * This inner class represents a node in the singly linked list.
      */
-    private class Node {
+    private class SNode {
         String word;
-        Node next;
+        SNode next;
 
-        Node(String word) {
+        SNode(String word) {
             this.word = word;
             this.next = null;
         }
@@ -45,21 +45,26 @@ public class VocabSLL {
      * @param word The word to add.
      */
     public void addWord(String word) {
-        Node newNode = new Node(word);
+        SNode newSNode = new SNode(word);
         if (head == null || head.word.compareTo(word) > 0) {
-            newNode.next = head;
-            head = newNode;
+            newSNode.next = head;
+            head = newSNode;
         } else {
-            Node current = head;
+            SNode current = head;
             while (current.next != null && current.next.word.compareTo(word) < 0) {
                 current = current.next;
             }
-            newNode.next = current.next;
-            current.next = newNode;
+            newSNode.next = current.next;
+            current.next = newSNode;
         }
         size++;
     }
 
+    /**
+     * Method to remove the last word from the singly linked list.
+     *
+     * @return The last word removed.
+     */
     public String removeLastWord() {
         if (head == null) {
             return null;
@@ -70,7 +75,7 @@ public class VocabSLL {
             size = 0;
             return word;
         }
-        Node current = head;
+        SNode current = head;
         while (current.next.next != null) {
             current = current.next;
         }
@@ -80,11 +85,17 @@ public class VocabSLL {
         return word;
     }
 
+    /**
+     * Method to remove the word after a given word.
+     *
+     * @param word The word after which to remove the next word.
+     * @return The word removed.
+     */
     public String removeWordAfter(String word) {
         if (head == null || head.next == null) {
             return null;
         }
-        Node current = head;
+        SNode current = head;
         while (current != null && !current.word.equals(word)) {
             current = current.next;
         }
@@ -97,8 +108,51 @@ public class VocabSLL {
         return removedWord;
     }
 
+    /**
+     * Method to remove a word from the singly linked list.
+     *
+     * @param word The word to remove.
+     * @return True if the word was removed, false otherwise.
+     */
+    public boolean removeNode(String word) {
+        // Case when list is empty or word is null
+        if (head == null || word == null) {
+            return false;
+        }
+
+        // Case when the head is the node to be removed
+        if (head.word.equals(word)) {
+            head = head.next;
+            size--;
+            return true;
+        }
+
+        SNode current = head;
+        SNode previous = null;
+
+        // Traverse the list to find the node to remove
+        while (current != null && !current.word.equals(word)) {
+            previous = current;
+            current = current.next;
+        }
+
+        // If the word was not found in the list
+        if (current == null) {
+            return false;
+        }
+
+        // Skip over the node to remove it
+        previous.next = current.next;
+        size--;
+        return true;
+    }
+
+
+    /**
+     * Method to display the words in the singly linked list.
+     */
     public void displayWords() {
-        Node current = head;
+        SNode current = head;
         while (current != null) {
             System.out.print(current.word + " ");
             current = current.next;
@@ -106,6 +160,11 @@ public class VocabSLL {
         System.out.println();
     }
 
+    /**
+     * Method to get the list of words.
+     *
+     * @return The list of words.
+     */
     public String getWords() {
         return words;
     }
