@@ -41,10 +41,9 @@ public class DoublyLinkedList {
     /**
      * Adds a new topic to the list.
      *
-     * @param topicName The name of the topic to add.
+     * @param newVocab the topic and list of words to add
      */
-    public void addTopic(String topicName) {
-        Vocab newVocab = new Vocab(topicName);
+    public void addTopic(Vocab newVocab) {
         DNode newNode = new DNode(newVocab);
         if (head == null) {
             head = newNode;
@@ -56,6 +55,7 @@ public class DoublyLinkedList {
         }
         size++;
     }
+
 
     /**
      * Remove the last topic from the list.
