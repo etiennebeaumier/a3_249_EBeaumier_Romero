@@ -11,8 +11,8 @@ package LinkedLists;
 /**
  * This class represents a singly linked list of words.
  */
-public class VocabSLL {
-    private String words;
+public class SinglyLinkedList {
+
     private SNode head;
     private int size = 0;
 
@@ -32,10 +32,9 @@ public class VocabSLL {
     /**
      * Constructor to initialize the list of words.
      *
-     * @param words The list of words.
      */
-    public VocabSLL(String words) {
-        this.words = words;
+    public SinglyLinkedList() {
+        size = 0;
         this.head = null;
     }
 
@@ -114,7 +113,7 @@ public class VocabSLL {
      * @param word The word to remove.
      * @return True if the word was removed, false otherwise.
      */
-    public boolean removeNode(String word) {
+    public boolean removeWord(String word) {
         // Case when list is empty or word is null
         if (head == null || word == null) {
             return false;
@@ -160,13 +159,5 @@ public class VocabSLL {
         System.out.println();
     }
 
-    /**
-     * Method to get the list of words.
-     *
-     * @return The list of words.
-     */
-    public String getWords() {
-        return words;
-    }
 }
 

@@ -8,149 +8,64 @@
 
 package LinkedLists;
 
-/**
- * This class represents a doubly linked list of topics. Each topic has a singly linked list of words.
- */
+import LinkedLists.SinglyLinkedList;
+
 public class Vocab {
-    private DNode head, tail;
-    private int size = 0;
+    String topic;
+    SinglyLinkedList words;
 
     /**
-     * This inner class represents a node in the doubly linked list.
-     */
-    private class DNode {
-        VocabSLL vocabSLL;
-        DNode next, prev;
-
-        DNode(VocabSLL vocabSLL) {
-            this.vocabSLL = vocabSLL;
-            this.next = null;
-            this.prev = null;
-        }
-    }
-
-    /**
-     * Method to add a topic to the doubly linked list.
+     * Constructor to initialize the Vocab object.
      *
-     * @param topicName The topic to add.
+     * @param topicName The name of the topic.
      */
-    public void addTopic(String topicName) {
-        VocabSLL newVocabSLL = new VocabSLL(topicName);
-        DNode newDNode = new DNode(newVocabSLL);
-        if (head == null) {
-            head = tail = newDNode;
-        } else {
-            tail.next = newDNode;
-            newDNode.prev = tail;
-            tail = newDNode;
-        }
-        size++;
+    public Vocab(String topicName) {
+        this.topic = topicName;
+        this.words = new SinglyLinkedList();
     }
 
     /**
-     * Remove the last topic from the doubly linked list.
-     * @return removedVocabSLL The removed list of words.
+     * Method to add a word to the Vocab's word list.
+     *
+     * @param word The word to add.
      */
-    public VocabSLL removeEnd() {
-        if (head == null) {
-            return null;
-        }
-        VocabSLL removedVocabSLL = tail.vocabSLL;
-        if (head == tail) {
-            head = tail = null;
-        } else {
-            tail = tail.prev;
-            tail.next = null;
-        }
-        size--;
-        return removedVocabSLL;
+    public void addWord(String word) {
+        words.addWord(word);
     }
 
     /**
-     * Remove the topic after the specified topicName.
-     * @param topicName The topic after which to remove.
-     * @return removedVocabSLL The removed list of words.
+     * Method to remove the last word from the Vocab's word list.
+     * @return String The word that was removed.
      */
-    public VocabSLL removeAfter(String topicName) {
-        DNode current = head;
-        while (current != null && !current.vocabSLL.getWords().equals(topicName)) {
-            current = current.next;
-        }
-        if (current == null || current.next == null) {
-            return null;
-        }
-        VocabSLL removedVocabSLL = current.next.vocabSLL;
-        if (current.next == tail) {
-            tail = current;
-        }
-        current.next = current.next.next;
-        if (current.next != null) {
-            current.next.prev = current;
-        }
-        size--;
-        return removedVocabSLL;
+    public String removeLastWord() {
+        return words.removeLastWord();
     }
 
     /**
-     * Remove the topic with the specified topicName.
-     * @param topicName The topic to remove.
-     * @return removedVocabSLL The removed list of words.
+     * Method to remove a word from the Vocab's word list.
+     *
+     * @param word The word to remove.
+     * @return boolean True if the word was removed, false otherwise.
      */
-    public boolean removeNode(String topicName) {
-        // If the list is empty or topicName is null
-        if (head == null || topicName == null) {
-            return false;
-        }
-
-        // If the head needs to be removed
-        if (head.vocabSLL.getWords().equals(topicName)) {
-            // If there's only one item in the list
-            if (head == tail) {
-                head = tail = null;
-            } else {
-                head = head.next;
-                head.prev = null;
-            }
-            size--;
-            return true;
-        }
-
-        DNode current = head;
-
-        // Traverse the list to find the node that matches the topicName
-        while (current != null && !current.vocabSLL.getWords().equals(topicName)) {
-            current = current.next;
-        }
-
-        // If the node wasn't found
-        if (current == null) {
-            return false;
-        }
-
-        // If the tail needs to be removed
-        if (current == tail) {
-            tail = tail.prev;
-            tail.next = null;
-        } else { // Node is in the middle
-            current.prev.next = current.next;
-            current.next.prev = current.prev;
-        }
-
-        size--;
-        return true;
+    public boolean removeWord(String word) {
+        return words.removeWord(word);
     }
 
+    /**
+     * Method to remove the word after a given word in the Vocab's word list.
+     *
+     * @param previousWord The word before the word to remove.
+     * @return String The word that was removed.
+     */
+    public String removeWordAfter(String previousWord) {
+        return words.removeWordAfter(previousWord);
+    }
 
     /**
-     * Method to display the topics in the doubly linked list, as well as the words in each topic.
+     * Method print all the words in the Vocab's word list.
      */
-    public void displayTopics() {
-        DNode current = head;
-        while (current != null) {
-            System.out.println("Topic: " + current.vocabSLL.getWords());
-            current.vocabSLL.displayWords();
-            current = current.next;
-        }
+    public void displayWords() {
+        System.out.println("Topic: " + this.topic);
+        words.displayWords();
     }
 }
-
