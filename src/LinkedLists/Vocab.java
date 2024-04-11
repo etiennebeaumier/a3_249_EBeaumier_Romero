@@ -25,6 +25,14 @@ public class Vocab {
     }
 
     /**
+     * Method to remove the last word from the Vocab's topic.
+     * @return String The topic contained in the vocab.
+     */
+    public String getTopic(){
+        return this.topic;
+    }
+
+    /**
      * Method to add a word to the Vocab's word list.
      *
      * @param word The word to add.

@@ -36,11 +36,13 @@ public class InitialVocab {
                     // Start a new Vocab
                     String topicName = line.substring(1).trim(); // Remove the '#' and trim
                     currentVocab = new Vocab(topicName);
+                    System.out.println(topicName);
 
                 } else {
                     // Word for the current topic
                     if (currentVocab != null) {
                         currentVocab.addWord(line);
+                        System.out.println(line);
                     }
                 }
             }

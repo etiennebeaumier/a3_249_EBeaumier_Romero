@@ -38,11 +38,6 @@ public class DoublyLinkedList {
         size = 0;
     }
 
-    /**
-     * Adds a new topic to the list.
-     *
-     * @param newVocab the topic and list of words to add
-     */
     public void addTopic(Vocab newVocab) {
         DNode newNode = new DNode(newVocab);
         if (head == null) {
@@ -55,8 +50,64 @@ public class DoublyLinkedList {
         }
         size++;
     }
+    /**
+     * Adds a new topic after a specific topic in the list.
+     *
+     * @param newVocab the topic and list of words to add
+     * @param topic the topic after which the new topic should be added in the list
+     */
+    public void addTopicAfter(Vocab newVocab, String topic) {
+        DNode newNode = new DNode(newVocab);
+        if (head == null) {
+            // If the list is empty, the new topic becomes the head and tail.
+            head =tail= newNode;
 
+        } else {
+            DNode current=head;
+            while (current!=null){
+                if(current.vocab.getTopic().equalsIgnoreCase(topic)){
+                    // Found the topic after which to add the new topic.
+                    newNode.next=current.next;
+                    newNode.prev=current;
+                    if(current.next!=null){
+                        // If current is not the last node, adjust the next node's prev pointer.
+                        current.next.prev=newNode;
+                    }
+                    else{
+                        // If current is the last node, new node becomes the new tail.
+                        tail=newNode;
+                    }
+                    current.next=newNode;
+                    size++;
+                    return;
+                }
+                current=current.next;
+            }
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+            size++;
+        }
 
+    }
+
+    public void addTopicBefore(Vocab newVocab, String topic){
+        DNode newNode=new DNode(newVocab);
+        if(head==null){
+            // If the list is empty, the new topic becomes the head and tail.
+            head=tail=newNode;
+        }
+        else {
+            DNode current=head;
+            while (current!=null){
+                if(current.vocab.topic.equalsIgnoreCase(topic)){
+                    newNode.prev=current.prev;
+                    newNode.next=current;
+                }
+            }
+        }
+
+    }
     /**
      * Remove the last topic from the list.
      */
