@@ -1,0 +1,13 @@
+# Sports
+Hockey
+ball
+puck
+racing
+running
+running shoes
+tennis racket
+# Food
+Candy
+burger
+cheese
+hot-dog

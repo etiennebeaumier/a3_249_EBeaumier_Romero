@@ -8,6 +8,8 @@
 
 package LinkedLists;
 
+import java.io.PrintWriter;
+
 /**
  * This class represents a singly linked list of words.
  */
@@ -15,6 +17,8 @@ public class SinglyLinkedList {
 
     private SNode head;
     private int size = 0;
+
+
 
     /**
      * This inner class represents a node in the singly linked list.
@@ -192,11 +196,34 @@ public class SinglyLinkedList {
      */
     public void displayWords() {
         SNode current = head;
+        int counter =0;
         while (current != null) {
-            System.out.print(current.word + " ");
+            if(counter%4==0){
+                System.out.println();
+            }
+            counter++;
+            System.out.print(counter + ": " +current.word + "\t\t ");
             current = current.next;
         }
         System.out.println();
+    }
+
+    public void displayWordsStartingWith(String letter){
+        SNode current = head;
+        while(current!=null){
+            if(current.word.startsWith(letter)){
+                System.out.println(current.word);
+            }
+            current = current.next;
+        }
+    }
+
+    public void saveToFile(PrintWriter writer) {
+        SNode current = head;
+        while (current != null) {
+            writer.println(current.word);
+            current = current.next;
+        }
     }
 
 }

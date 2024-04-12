@@ -8,6 +8,8 @@
 
 package LinkedLists;
 
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -283,6 +285,19 @@ public class DoublyLinkedList {
         }
     }
 
+    public String displayTopic(int index) {
+        int i = 1;
+        DNode current = head;
+        while (current != null) {
+            if (i == index) {
+                return current.vocab.topic;
+            }
+            current = current.next;
+            i++;
+        }
+        return "Topic not found.";
+    }
+
     /**
      * Display all words in a topic.
      * @param topicName name of the topic
@@ -297,6 +312,46 @@ public class DoublyLinkedList {
             current = current.next;
         }
         System.out.println("Topic not found.");
+    }
+
+    public String searchWord(String word){
+        DNode current = head;
+        while (current != null) {
+            if (current.vocab.words.contains(word)) {
+                return current.vocab.topic;
+            }
+            current = current.next;
+        }
+        return "Word not found.";
+    }
+
+    public void displayWordsStartingWith(String letter){
+        DNode current = head;
+        while (current != null) {
+            current.vocab.displayWordsStartingWith(letter);
+            current = current.next;
+        }
+    }
+
+    public boolean saveToFile(String filename) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(new FileOutputStream(filename));
+            DNode current = head;
+            while (current != null) {
+                writer.println("# " + current.vocab.topic);
+                current.vocab.saveToFile(writer);
+                current = current.next;
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
     }
 
 }

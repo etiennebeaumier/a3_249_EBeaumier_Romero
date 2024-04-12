@@ -8,7 +8,7 @@
 
 package LinkedLists;
 
-import LinkedLists.SinglyLinkedList;
+import java.io.PrintWriter;
 
 public class Vocab {
     String topic;
@@ -98,7 +98,13 @@ public class Vocab {
      * Method print all the words in the Vocab's word list.
      */
     public void displayWords() {
-        System.out.println("Topic: " + this.topic);
         words.displayWords();
+    }
+    public void displayWordsStartingWith(String letter){
+         words.displayWordsStartingWith(letter);
+    }
+
+    public void saveToFile(PrintWriter writer) {
+        words.saveToFile(writer);
     }
 }
