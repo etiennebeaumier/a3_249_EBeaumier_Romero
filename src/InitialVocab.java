@@ -60,6 +60,7 @@ public class InitialVocab {
             }
         }
 
+        System.out.println("Done loading");
         return vocabList;
     }
 }

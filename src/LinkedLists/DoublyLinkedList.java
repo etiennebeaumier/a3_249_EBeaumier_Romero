@@ -57,6 +57,9 @@ public class DoublyLinkedList {
      * @param topic the topic after which the new topic should be added in the list
      */
     public void addTopicAfter(Vocab newVocab, String topic) {
+        if (newVocab == null) {
+            throw new NullPointerException("newVocab cannot be null.");
+        }
         DNode newNode = new DNode(newVocab);
         if (head == null) {
             // If the list is empty, the new topic becomes the head and tail.
@@ -92,6 +95,9 @@ public class DoublyLinkedList {
     }
 
     public void addTopicBefore(Vocab newVocab, String topic){
+        if (newVocab == null) {
+            throw new NullPointerException("newVocab cannot be null.");
+        }
         DNode newNode=new DNode(newVocab);
         if(head==null){
             // If the list is empty, the new topic becomes the head and tail.
@@ -99,19 +105,36 @@ public class DoublyLinkedList {
         }
         else {
             DNode current=head;
-            while (current!=null){
-                if(current.vocab.topic.equalsIgnoreCase(topic)){
-                    newNode.prev=current.prev;
-                    newNode.next=current;
+            while (current!=null) {
+                if (current.vocab.topic.equalsIgnoreCase(topic)) {
+                    // Found the topic after which to add the new topic.
+                    newNode.prev = current.prev;
+                    newNode.next = current;
+
+                    if (current.prev != null) {
+                        // If current is not the first node, adjust the previous node's next pointer.
+                        current.prev.next = newNode;
+                    } else {
+                        // If current is the first node, new node becomes the new head.
+                        head = newNode;
+                    }
+                    current.prev = newNode;
+                    size++;
+                    return;
                 }
+                current = current.next;
             }
+            head.prev = newNode;
+            newNode.next = head;
+            head = newNode;
+            size++;
         }
 
     }
     /**
      * Remove the last topic from the list.
      */
-    public void removeEnd() {
+    public void removeEnd(){
         if (tail != null) {
             if (tail.prev != null) {
                 tail = tail.prev;
