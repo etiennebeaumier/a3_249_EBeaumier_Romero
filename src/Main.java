@@ -1,4 +1,5 @@
 import LinkedLists.DoublyLinkedList;
+import LinkedLists.Vocab;
 
 import java.util.Scanner;
 
@@ -26,6 +27,54 @@ public class Main {
             int choice = Integer.parseInt(Strchoice);
 
             switch (choice) {
+                case 2:
+                    System.out.println("-----------------------------");
+                    System.out.println("Pick a topic ");
+                    System.out.println("-----------------------------");
+                    vocabList.displayTopics();
+                    int topicToInsertBefore = scn.nextInt();
+                    System.out.println("Enter a topic name:");
+                    scn.nextLine();
+                    String newTopic = scn.nextLine();
+                    Vocab newTopicToAddBefore= new Vocab(newTopic);
+                    vocabList.addTopicBefore(newTopicToAddBefore,topicToInsertBefore);
+                    vocabList.displayTopics();
+                    break;
+
+                    case 3:
+                    System.out.println("-----------------------------");
+                    System.out.println("Pick a topic ");
+                    System.out.println("-----------------------------");
+                    vocabList.displayTopics();
+                    int topicToInsertAfter = scn.nextInt();
+                    System.out.println("Enter a topic name:");
+                    scn.nextLine();
+                    String newTopicAfter = scn.nextLine();
+                    Vocab newTopicToAddAfter= new Vocab(newTopicAfter);
+                    vocabList.addTopicAfter(newTopicToAddAfter,topicToInsertAfter);
+                    vocabList.displayTopics();
+                    break;
+
+                case 4:
+                    System.out.println("-----------------------------");
+                    System.out.println("Pick a topic to remove: ");
+                    System.out.println("-----------------------------");
+                    vocabList.displayTopics();
+                    int topicToRemove = scn.nextInt();
+                    vocabList.removeTopic(topicToRemove);
+                    vocabList.displayTopics();
+                    break;
+
+                case 5:
+                    System.out.println("-----------------------------");
+                    System.out.println("Pick a topic to modify: ");
+                    System.out.println("-----------------------------");
+                    vocabList.displayTopics();
+                    int topicToModify = scn.nextInt();
+                    vocabList.modifyTopic(topicToModify);
+                    break;
+
+
                 case 7:
                     System.out.println("Enter the name of the file to load from: ");
                     String filename = scn.nextLine();
@@ -63,7 +112,7 @@ public static void displayMenu() {
             9 save to file
             0 exit
             -----------------------------
-            Enter your choice: """);
+            Enter your choice:""");
 }
 }
 

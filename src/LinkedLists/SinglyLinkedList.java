@@ -59,6 +59,44 @@ public class SinglyLinkedList {
         size++;
     }
 
+/**
+     * Method to verify if the topic contains a given word.
+     *
+     * @param word to check for.
+     * @return True if the word is in the topic, false otherwise.
+     */
+    public boolean contains(String word){
+        SNode current = head;
+        while(current!=null){
+            if(current.word.equalsIgnoreCase(word)){
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+    /**
+     * Method to change a given word.
+     *
+     * @param wordToChange The word to replace by the new word.
+     * @param newWord The new word to add.
+     */
+    public void changeWord(String wordToChange, String newWord) {
+        SNode current = head;
+        if(head.word.equals(wordToChange)){
+            head.word = newWord;
+        }
+        while(current!=null){
+            if(current.word.equals(wordToChange)){
+                current.word = newWord;
+                break;
+            }
+            current = current.next;
+
+        }
+
+    }
+
     /**
      * Method to remove the last word from the singly linked list.
      *
@@ -84,6 +122,7 @@ public class SinglyLinkedList {
         return word;
     }
 
+
     /**
      * Method to remove the word after a given word.
      *
@@ -106,6 +145,7 @@ public class SinglyLinkedList {
         size--;
         return removedWord;
     }
+
 
     /**
      * Method to remove a word from the singly linked list.

@@ -8,6 +8,8 @@
 
 package LinkedLists;
 
+import java.util.Scanner;
+
 /**
  * This class represents a doubly linked list of topics. Each topic has a singly linked list of words.
  */
@@ -56,7 +58,8 @@ public class DoublyLinkedList {
      * @param newVocab the topic and list of words to add
      * @param topic the topic after which the new topic should be added in the list
      */
-    public void addTopicAfter(Vocab newVocab, String topic) {
+    public void addTopicAfter(Vocab newVocab, int topic) {
+        int index=1;
         if (newVocab == null) {
             throw new NullPointerException("newVocab cannot be null.");
         }
@@ -68,7 +71,7 @@ public class DoublyLinkedList {
         } else {
             DNode current=head;
             while (current!=null){
-                if(current.vocab.getTopic().equalsIgnoreCase(topic)){
+                if(index== topic){
                     // Found the topic after which to add the new topic.
                     newNode.next=current.next;
                     newNode.prev=current;
@@ -93,8 +96,14 @@ public class DoublyLinkedList {
         }
 
     }
-
-    public void addTopicBefore(Vocab newVocab, String topic){
+/**
+     * Adds a new topic before a specific topic in the list.
+     *
+     * @param newVocab the topic and list of words to add
+     * @param topic the topic before which the new topic should be added in the list
+     */
+    public void addTopicBefore(Vocab newVocab, int topic){
+        int index = 1;
         if (newVocab == null) {
             throw new NullPointerException("newVocab cannot be null.");
         }
@@ -106,7 +115,7 @@ public class DoublyLinkedList {
         else {
             DNode current=head;
             while (current!=null) {
-                if (current.vocab.topic.equalsIgnoreCase(topic)) {
+                if (index== topic) {
                     // Found the topic after which to add the new topic.
                     newNode.prev = current.prev;
                     newNode.next = current;
@@ -123,6 +132,7 @@ public class DoublyLinkedList {
                     return;
                 }
                 current = current.next;
+                index++;
             }
             head.prev = newNode;
             newNode.next = head;
@@ -130,6 +140,72 @@ public class DoublyLinkedList {
             size++;
         }
 
+    }
+
+    /**
+     * Modify a topic by adding, removing, or changing words.
+     * @param topicToModify the index of the topic to modify
+     */
+    public void modifyTopic(int topicToModify) {
+        DNode current = head;
+        int index = 1;
+        while (current != null) {
+            if (index==topicToModify) {
+                break; // Found the topic, break the loop
+            }
+            current = current.next; // Otherwise, move to the next node
+            index++;
+        }
+
+        if (current == null) {
+            System.out.println("There is no topic of this name");
+            return;
+        } else {
+            Scanner keyboard = new Scanner(System.in);
+            String choice;
+            do {
+                displayToModifyMenu();
+                choice = keyboard.nextLine();
+                switch (choice) {
+                    case "a":
+                        System.out.println("Enter the word to add: ");
+                        String wordToAdd = keyboard.nextLine();
+                        current.vocab.addWord(wordToAdd);
+                        break;
+                    case "b":
+                        System.out.println("Enter the word to remove: ");
+                        String wordToRemove = keyboard.nextLine();
+                        current.vocab.removeWord(wordToRemove);
+                        break;
+                    case "c":
+                        System.out.println("Enter the word to change: ");
+                        String wordToChange = keyboard.nextLine();
+                        System.out.println("Enter the new word: ");
+                        String newWord = keyboard.nextLine();
+                        current.vocab.changeWord(wordToChange, newWord);
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                        break;
+                }
+            } while (!"0".equals(choice));
+
+        }
+        System.out.println("Topic modified successfully");
+    }
+
+
+
+    public void displayToModifyMenu(){
+        System.out.println("-----------------------------");
+        System.out.println("Modify Topics Menu");
+        System.out.println("-----------------------------");
+        System.out.println("a. Add a word to the topic");
+        System.out.println("b. Remove a word from the topic");
+        System.out.println("c. Change a word in the topic");
+        System.out.println("0. Exit");
+        System.out.println("-----------------------------");
+        System.out.println("Enter your choice: ");
     }
     /**
      * Remove the last topic from the list.
@@ -170,12 +246,13 @@ public class DoublyLinkedList {
 
     /**
      * Remove the specified topic
-     * @param topicName name of the topic
+     * @param topicToRemove name of the topic
      */
 
-    public void removeTopic(String topicName) {
+    public void removeTopic(int topicToRemove) {
+        int index=1;
         DNode current = head;
-        while (current != null && !current.vocab.topic.equals(topicName)) {
+        while (current != null && index!=topicToRemove) {
             current = current.next;
         }
         if (current != null) {
@@ -197,11 +274,29 @@ public class DoublyLinkedList {
      * Display all topics in the list.
      */
     public void displayTopics() {
+        int index = 1;
         DNode current = head;
         while (current != null) {
-            System.out.println(current.vocab.topic);
+            System.out.println(index+". "+current.vocab.topic);
+            current = current.next;
+            index++;
+        }
+    }
+
+    /**
+     * Display all words in a topic.
+     * @param topicName name of the topic
+     */
+    public void displayWords(String topicName) {
+        DNode current = head;
+        while (current != null) {
+            if (current.vocab.topic.equals(topicName)) {
+                current.vocab.displayWords();
+                return;
+            }
             current = current.next;
         }
+        System.out.println("Topic not found.");
     }
 
 }
