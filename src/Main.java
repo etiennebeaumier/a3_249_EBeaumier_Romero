@@ -125,7 +125,7 @@ public class Main {
                         System.out.println("Invalid input. Please enter a single letter.");
                         letter = scn.nextLine();
                     }
-                    vocabList.displayWordsStartingWith(letter);
+                    System.out.println(vocabList.displayWordsStartingWith(letter));
                     break;
 
                 case 9:
@@ -134,6 +134,11 @@ public class Main {
                     vocabList.saveToFile("resources/" + saveFilename);
 
                     break;
+
+                    case 10:
+                        System.out.println("Enter a word ");
+                        String tocheck = scn.nextLine();
+                        vocabList.displayWordsStartingWith(tocheck);
                 case 0:
                     System.out.println("Exiting...");
                     scn.close();

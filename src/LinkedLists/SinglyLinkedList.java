@@ -9,6 +9,7 @@
 package LinkedLists;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 /**
  * This class represents a singly linked list of words.
@@ -208,14 +209,22 @@ public class SinglyLinkedList {
         System.out.println();
     }
 
-    public void displayWordsStartingWith(String letter){
+    /**
+     * Method to display the words in the singly linked list starting with a given letter.
+     *
+     * @param letter The letter to search for.
+     */
+    public ArrayList<String> displayWordsStartingWith(String letter){
+        ArrayList <String> wordsToDisplay = new ArrayList<>();
+        String lowerCaseLetter = letter.toLowerCase();
         SNode current = head;
         while(current!=null){
-            if(current.word.startsWith(letter)){
-                System.out.println(current.word);
+            if(current.word.startsWith(lowerCaseLetter)){
+                wordsToDisplay.add(current.word);
             }
             current = current.next;
         }
+        return wordsToDisplay;
     }
 
     public void saveToFile(PrintWriter writer) {

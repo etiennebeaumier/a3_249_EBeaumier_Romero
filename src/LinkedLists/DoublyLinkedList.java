@@ -10,6 +10,9 @@ package LinkedLists;
 
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -325,12 +328,22 @@ public class DoublyLinkedList {
         return "Word not found.";
     }
 
-    public void displayWordsStartingWith(String letter){
+    /**
+     * Display words starting with a specific letter.
+     * @param letter
+     * @return
+     */
+    public ArrayList<String> displayWordsStartingWith(String letter){
+        ArrayList<String> wordsToDisplay = new ArrayList<>();
         DNode current = head;
         while (current != null) {
-            current.vocab.displayWordsStartingWith(letter);
+            ArrayList<String> underWords= current.vocab.displayWordsStartingWith(letter);
+            wordsToDisplay.addAll(underWords);
             current = current.next;
         }
+        Collections.sort(wordsToDisplay);
+        return wordsToDisplay;
+
     }
 
     public boolean saveToFile(String filename) {

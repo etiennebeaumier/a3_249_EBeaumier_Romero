@@ -9,6 +9,7 @@
 package LinkedLists;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class Vocab {
     String topic;
@@ -100,8 +101,15 @@ public class Vocab {
     public void displayWords() {
         words.displayWords();
     }
-    public void displayWordsStartingWith(String letter){
-         words.displayWordsStartingWith(letter);
+
+    /**
+     * Method to display all the words in the Vocab's word list that start with a given letter.
+     *
+     * @param letter The letter to search for.
+     * @return ArrayList The list of words that start with the given letter.
+     */
+    public ArrayList displayWordsStartingWith(String letter){
+       return words.displayWordsStartingWith(letter);
     }
 
     public void saveToFile(PrintWriter writer) {
