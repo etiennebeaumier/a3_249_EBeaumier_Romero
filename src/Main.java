@@ -1,9 +1,19 @@
+/* -----------------------------------------------------
+         //Assignment 2
+         //Question: Main Class
+        // Written by: Étienne Beaumier, 40211362
+                       Romero FAUSTIN,   40234898
+// -----------------------------------------------------
+*/
+
+
 import LinkedLists.DoublyLinkedList;
 import LinkedLists.Vocab;
-
 import java.util.Scanner;
 
-
+/**
+ * Main class to run the Vocabulary Control Center.
+ */
 public class Main {
     public static void main(String[] args) {
 

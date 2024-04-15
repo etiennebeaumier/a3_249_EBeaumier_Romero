@@ -230,22 +230,35 @@ public class DoublyLinkedList {
 
     /**
      * Remove the topic that comes after the specified topic
-     * @param topicName name of the topic
+     * @param topicToRemove index of the topic
      */
-    public void removeAfterTopic(String topicName) {
-        DNode current = head;
-        while (current != null && !current.vocab.topic.equals(topicName)) {
-            current = current.next;
+    public void removeTopic(int topicToRemove) {
+        if (topicToRemove < 1 || topicToRemove > size) {
+            System.out.println("Invalid topic number.");
+            return;
         }
-        if (current != null && current.next != null) {
-            DNode toRemove = current.next;
-            current.next = toRemove.next;
-            if (toRemove.next != null) {
-                toRemove.next.prev = current;
-            } else {
-                tail = current;
+
+        DNode current = head;
+        int index = 1;
+
+        while (current != null) {
+            if (index == topicToRemove) {
+                // Found the topic to remove
+                if (current.prev != null) {
+                    current.prev.next = current.next;
+                } else {
+                    head = current.next;
+                }
+                if (current.next != null) {
+                    current.next.prev = current.prev;
+                } else {
+                    tail = current.prev;
+                }
+                size--;
+                return;
             }
-            size--;
+            current = current.next;
+            index++;
         }
     }
 
@@ -254,10 +267,9 @@ public class DoublyLinkedList {
      * @param topicToRemove name of the topic
      */
 
-    public void removeTopic(int topicToRemove) {
-        int index=1;
+    public void removeTopic(String topicToRemove) {
         DNode current = head;
-        while (current != null && index!=topicToRemove) {
+        while (current != null && !current.vocab.topic.equals(topicToRemove)) {
             current = current.next;
         }
         if (current != null) {
@@ -331,7 +343,7 @@ public class DoublyLinkedList {
     /**
      * Display words starting with a specific letter.
      * @param letter
-     * @return
+     * @return list of words displayed in order of letters
      */
     public ArrayList<String> displayWordsStartingWith(String letter){
         ArrayList<String> wordsToDisplay = new ArrayList<>();

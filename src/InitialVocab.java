@@ -1,3 +1,12 @@
+/* -----------------------------------------------------
+         //Assignment 2
+         //Question: Main Class
+        // Written by: Étienne Beaumier, 40211362
+                       Romero FAUSTIN,   40234898
+// -----------------------------------------------------
+*/
+
+
 import LinkedLists.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -36,13 +45,11 @@ public class InitialVocab {
                     // Start a new Vocab
                     String topicName = line.substring(1).trim(); // Remove the '#' and trim
                     currentVocab = new Vocab(topicName);
-                    System.out.println(topicName);
 
                 } else {
                     // Word for the current topic
                     if (currentVocab != null) {
                         currentVocab.addWord(line);
-                        System.out.println(line);
                     }
                 }
             }
